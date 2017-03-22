@@ -57,7 +57,7 @@ export class SnowboundViewerComponent {
      * Builds url that is required by Snowbound Viewer, including documentId and authentication token
      * @returns {SafeResourceUrl} Full url that can be passed to snowbound
      */
-    viewerURL(){
+    viewerURL(): any{
         let args = '{"ticket" : "' + this.authenticationService.getTicketEcm() + '"}';
         this.url= this.rootURL + "?documentId=" + this.fileNodeId + '&clientInstanceId=' + args;
         return this.sanitizer.bypassSecurityTrustResourceUrl(this.url);

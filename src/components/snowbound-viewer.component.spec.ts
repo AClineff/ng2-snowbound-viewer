@@ -3,21 +3,21 @@ import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { AlfrescoSettingsService, AlfrescoApiService, AlfrescoAuthenticationService, CoreModule } from 'ng2-alfresco-core';
 
-import { Ng2SnowboundViewerComponent } from './snowbound-viewer.component';
+import { SnowboundViewerComponent } from './snowbound-viewer.component';
 
-describe('ng2-snowbound-viewer', () => {
+describe('Test ng2-snowbound-viewer component', () => {
 
-    let component: Ng2SnowboundViewerComponent;
-    let fixture: ComponentFixture<Ng2SnowboundViewerComponent>;
+    let component: SnowboundViewerComponent;
+    let fixture: ComponentFixture<SnowboundViewerComponent>;
     let debug: DebugElement;
-    let element: any;
+    let element: HTMLElement;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
                 CoreModule
             ],
-            declarations: [Ng2SnowboundViewerComponent],
+            declarations: [SnowboundViewerComponent],
             providers: [
                 AlfrescoSettingsService,
                 AlfrescoAuthenticationService,
@@ -31,7 +31,7 @@ describe('ng2-snowbound-viewer', () => {
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(Ng2SnowboundViewerComponent);
+        fixture = TestBed.createComponent(SnowboundViewerComponent);
 
         debug = fixture.debugElement;
         element = fixture.nativeElement;

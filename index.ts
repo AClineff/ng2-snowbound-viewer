@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CoreModule } from 'ng2-alfresco-core';
 
-import { Ng2SnowboundViewerComponent } from './src/components/snowbound-viewer.component';
+import { SnowboundViewerComponent } from './src/components/snowbound-viewer.component';
 
 export * from './src/components/snowbound-viewer.component';
 
@@ -11,12 +11,12 @@ export * from './src/components/snowbound-viewer.component';
         CoreModule
     ],
     declarations: [
-        Ng2SnowboundViewerComponent
+        SnowboundViewerComponent
     ],
     providers: [
     ],
     exports: [
-        Ng2SnowboundViewerComponent
+        SnowboundViewerComponent
     ]
 })
-export class Ng2SnowboundViewerModule {}
+export class SnowboundViewerModule {}
