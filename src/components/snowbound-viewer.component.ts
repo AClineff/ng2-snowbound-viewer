@@ -1,7 +1,7 @@
 
 import { Component, Input, EventEmitter, Output, ElementRef } from '@angular/core';
 import {AlfrescoSettingsService, AlfrescoAuthenticationService} from "ng2-alfresco-core";
-import {DomSanitizer} from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 declare let __moduleName: string;
 
@@ -57,7 +57,7 @@ export class SnowboundViewerComponent {
      * Builds url that is required by Snowbound Viewer, including documentId and authentication token
      * @returns {SafeResourceUrl} Full url that can be passed to snowbound
      */
-    viewerURL(): any{
+    viewerURL(): SafeResourceUrl{
         let args = '{"ticket" : "' + this.authenticationService.getTicketEcm() + '"}';
         this.url= this.rootURL + "?documentId=" + this.fileNodeId + '&clientInstanceId=' + args;
         return this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
