@@ -12,7 +12,7 @@ window.componentHandler = {
 
 __karma__.loaded = function() {};
 
-var builtPath = '/base/dist/';
+var builtPath = '/base/src/';
 
 function isJsFile(path) {
     return path.slice(-3) == '.js';
@@ -29,6 +29,10 @@ function isBuiltFile(path) {
 var allSpecFiles = Object.keys(window.__karma__.files)
     .filter(isSpecFile)
     .filter(isBuiltFile);
+
+allSpecFiles.forEach((url)=>{
+    console.log(url);
+});
 
 var paths = {
     // paths serve as alias

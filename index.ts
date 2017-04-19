@@ -1,4 +1,3 @@
-
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CoreModule } from 'ng2-alfresco-core';
 
@@ -13,8 +12,7 @@ export * from './src/components/snowbound-viewer.component';
     declarations: [
         SnowboundViewerComponent
     ],
-    providers: [
-    ],
+    providers: [],
     exports: [
         SnowboundViewerComponent
     ]
@@ -23,6 +21,6 @@ export class SnowboundViewerModule {
     static forRoot(): ModuleWithProviders {
         return {
             ngModule: SnowboundViewerModule
-        }
+        };
     }
 }
