@@ -1,12 +1,10 @@
-
 import { Component, Input, EventEmitter, Output, ElementRef } from '@angular/core';
-import {AlfrescoSettingsService, AlfrescoAuthenticationService} from "ng2-alfresco-core";
+import { AlfrescoSettingsService, AlfrescoAuthenticationService } from 'ng2-alfresco-core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 declare let __moduleName: string;
 
 @Component({
-    moduleId: __moduleName,
     selector: 'snowbound-viewer',
     templateUrl: './snowbound-viewer.component.html',
     styleUrls: ['./snowbound-viewer.component.css']
@@ -29,7 +27,7 @@ export class SnowboundViewerComponent {
     rootURL: string;
 
     // url provided to the snowbound viewer
-    url:string;
+    url: string;
 
     // reference element to existing header element - ADF only
     otherMenu: any;
@@ -41,15 +39,15 @@ export class SnowboundViewerComponent {
                 public authenticationService: AlfrescoAuthenticationService,
                 public sanitizer: DomSanitizer,
                 private element: ElementRef) {
-        console.debug("Constructor running");
-        this.rootURL = this.getECMHost() + "/VirtualViewerJavaHTML5/index.html";
+        console.log('Constructor running');
+        this.rootURL = this.getECMHost() + '/VirtualViewerJavaHTML5/index.html';
     }
 
     /**
      * ECM host serves as the base of the snowbound viewer url
      * @returns {string}
      */
-    private getECMHost(){
+    private getECMHost() {
         return this.alfrescoSettingsService.ecmHost;
     }
 
@@ -57,21 +55,21 @@ export class SnowboundViewerComponent {
      * Builds url that is required by Snowbound Viewer, including documentId and authentication token
      * @returns {SafeResourceUrl} Full url that can be passed to snowbound
      */
-    viewerURL(): SafeResourceUrl{
+    viewerURL(): SafeResourceUrl {
         let args = '{"ticket" : "' + this.authenticationService.getTicketEcm() + '"}';
-        this.url= this.rootURL + "?documentId=" + this.fileNodeId + '&clientInstanceId=' + args;
+        this.url = this.rootURL + '?documentId=' + this.fileNodeId + '&clientInstanceId=' + args;
         return this.sanitizer.bypassSecurityTrustResourceUrl(this.url);
     }
 
     /**
      * Detect if the viewer is going from not shown->shown and trigger some DOM helper methods
      */
-    ngOnChanges(){
-        if(this.showViewer){
+    ngOnChanges() {
+        if (this.showViewer) {
             this.hideOtherHeaderBar();
             this.blockOtherScrollBar();
-            if(!this.fileNodeId){
-                throw new Error("File Node Id required for snowbound viewer to display.");
+            if (!this.fileNodeId) {
+                throw new Error('File Node Id required for snowbound viewer to display.');
             }
         }
     }
@@ -139,7 +137,7 @@ export class SnowboundViewerComponent {
     /**
      * Mostly stub.  If there is no fileNodeId we can assume the viewer is not loaded.
      */
-    isLoaded(){
+    isLoaded() {
         return !!this.fileNodeId;
     }
 
