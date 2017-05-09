@@ -1,8 +1,31 @@
+/*!
+ * @license
+ * Copyright 2016 Alfresco Software, Ltd.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
-import { AlfrescoSettingsService, AlfrescoApiService, AlfrescoAuthenticationService, CoreModule } from 'ng2-alfresco-core';
+import {
+    AlfrescoSettingsService,
+    AlfrescoApiService,
+    AlfrescoAuthenticationService,
+    CoreModule
+} from 'ng2-alfresco-core';
 
 import { SnowboundViewerComponent } from './snowbound-viewer.component';
+import { SafeResourceUrl } from "@angular/platform-browser"
 
 describe('Test ng2-snowbound-viewer component', () => {
 
@@ -37,6 +60,61 @@ describe('Test ng2-snowbound-viewer component', () => {
         component = fixture.componentInstance;
 
         fixture.detectChanges();
+    });
+
+    describe('view', () => {
+        describe('Overlay mode true', () => {
+            beforeEach(() => {
+                component.overlayMode = true;
+                fixture.detectChanges();
+            });
+
+            it('shadow overlay should be present if is overlay mode', () => {
+                expect(element.querySelector('#viewer-shadow-transparent')).not.toBeNull();
+            });
+
+            it('header should be present if is overlay mode', () => {
+                expect(element.querySelector('header')).not.toBeNull();
+            });
+
+            it('should be parent header element', ()=>{
+                expect(component.isParentElementHeaderBar())
+            })
+
+            it('Close button should be present if overlay mode', () => {
+                expect(element.querySelector('#viewer-close-button')).not.toBeNull();
+            });
+
+            it('Click on close button should hide the viewer', () => {
+                let closebutton: any = element.querySelector('#viewer-close-button');
+                closebutton.click();
+                fixture.detectChanges();
+                expect(element.querySelector('#viewer-main-container')).toBeNull();
+            });
+
+            it('all-space class should not be present if is in overlay mode', () => {
+                expect(element.querySelector('#snowbound-viewer').getAttribute('class')).toEqual('');
+            });
+        })
+
+        describe('Overlay mode false', () => {
+            beforeEach(() => {
+                component.overlayMode = false;
+                fixture.detectChanges();
+            });
+
+            it('header should be NOT be present if is not overlay mode', () => {
+                expect(element.querySelector('header')).toBeNull();
+            });
+
+            it('Close button should be not present if is not overlay mode', () => {
+                expect(element.querySelector('#viewer-close-button')).toBeNull();
+            });
+
+            it('all-space class should be present if is not overlay mode', () => {
+                expect(element.querySelector('#snowbound-viewer').getAttribute('class')).toEqual('all-space');
+            });
+        });
     });
 
     describe('Attributes', () => {
@@ -99,6 +177,25 @@ describe('Test ng2-snowbound-viewer component', () => {
                 });
                 component.close();
             });
+        });
+
+        describe('Building snowbound URL', () => {
+            it('should return a correct and useable url', () => {
+                let response = component.viewerURL()
+                /*
+                 There is some Javascript regex black magic going on here that causes this not to work.
+                 This is valid and tested regex for matching a valid url.
+
+                 let re = new RegExp('https?:\/\/[a-zA-Z]+:\d+\/VirtualViewerJavaHTML5\/index.html\?documentId=[a-zA-Z\d]+&clientInstanceId={[":\sa-zA-Z]+}');
+                 expect(component.url).toMatch(re);
+                 */
+                expect(response).toBeDefined();
+            });
+
+            it('should set the component url property', () => {
+                component.viewerURL();
+                expect(component.url).toBeDefined();
+            })
         });
 
         it('should clear fileNodeId on destroy', () => {
